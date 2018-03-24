@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Reader</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+
+    <h2>Reader</h2>
+
+    <form modelAttribute="reader" method="post" action="addReader">
+
+        <div>
+            <label for="name">Name</label>
+            <input id="name" th:field="${reader.name}" />
+        </div>
+        <div>
+            <label for="surname">Surname</label>
+            <input id="surname" th:field="${reader.surname}" />
+        </div>
+        <button type="submit">Save</button>
+
+    </form>
+
+</body>
+
+</html>
