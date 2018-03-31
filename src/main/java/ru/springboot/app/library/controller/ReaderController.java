@@ -21,15 +21,13 @@ public class ReaderController {
     @Autowired
     ReaderRepository readerData;
 
-    /*@RequestMapping(value = "/")
-    public String index(Model model) {
-
+    @RequestMapping(value = "/index")
+    public String index() {
         return "index";
-    }*/
+    }
 
     @RequestMapping(value = "/showReaders")
     public ModelAndView showReaders() {
-
         List<Reader> readers = readerData.findAll();
 
         Map<String, Object> params = new HashMap<>();
@@ -40,20 +38,21 @@ public class ReaderController {
 
     @RequestMapping(value = "/deleteReader/{id}", method = RequestMethod.GET)
     public String deleteReader(@PathVariable(required = true, name = "id") Long id) {
-
         readerData.deleteById(id);
-
-        return "showReaders";
+        return "redirect:/index";
     }
 
+    @RequestMapping(value = "/addReader", method = RequestMethod.GET)
+    public String addReader(Model model) {
+        model.addAttribute("reader", new Reader());
+        return "addReader";
+    }
 
-    //TODO addReader
     @RequestMapping(value = "/addReader", method = RequestMethod.POST)
-    public String addReader(@ModelAttribute("reader") Reader reader) {
-
+    public String addReaderSubmit(@ModelAttribute Reader reader, Model model) {
         readerData.save(reader);
-
-        return "/";
+        model.addAttribute("reader", reader);
+        return "index";
     }
 
 }
