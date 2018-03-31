@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Librarians</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+
+<h2>List of librarians</h2>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+    </tr>
+    <tr th:each="librarian : ${librarians}">
+        <td th:text="${librarian.id}">id</td>
+        <td th:text="${librarian.name}">name</td>
+        <td th:text="${librarian.surname}">price</td>
+        <td><a href="deleteLibrarian" th:href="@{/deleteLibrarian/__${librarian.id}__}">Delete</a></td>
+    </tr>
+</table>
+
+<a href="addLibrarian">Add librarian</a>
+
+</body>
+
+</html>

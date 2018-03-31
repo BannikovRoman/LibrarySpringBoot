@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import ru.springboot.app.library.model.Librarian;
 import ru.springboot.app.library.model.Reader;
+import ru.springboot.app.library.repository.LibrarianRepository;
 import ru.springboot.app.library.repository.ReaderRepository;
 
 import java.util.HashMap;
@@ -16,16 +18,20 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class ReaderController {
+public class MainController {
 
     @Autowired
     ReaderRepository readerData;
+
+    @Autowired
+    LibrarianRepository librarianData;
 
     @RequestMapping(value = "/index")
     public String index() {
         return "index";
     }
 
+    //***** Reader *****
     @RequestMapping(value = "/showReaders")
     public ModelAndView showReaders() {
         List<Reader> readers = readerData.findAll();
@@ -54,5 +60,37 @@ public class ReaderController {
         model.addAttribute("reader", reader);
         return "index";
     }
+    //***** Reader *****
 
+    //***** Librarian *****
+
+    @RequestMapping(value = "/showLibrarians")
+    public ModelAndView showLibrarians() {
+        List<Librarian> librarians = librarianData.findAll();
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("librarians", librarians);
+
+        return new ModelAndView("showLibrarians", params);
+    }
+
+    @RequestMapping(value = "/deleteLibrarian/{id}", method = RequestMethod.GET)
+    public String deleteLibrarian(@PathVariable(required = true, name = "id") Long id) {
+        librarianData.deleteById(id);
+        return "redirect:/index";
+    }
+
+    @RequestMapping(value = "/addLibrarian", method = RequestMethod.GET)
+    public String addLibrarian(Model model) {
+        model.addAttribute("librarian", new Librarian());
+        return "addLibrarian";
+    }
+
+    @RequestMapping(value = "/addLibrarian", method = RequestMethod.POST)
+    public String addLibrarianSubmit(@ModelAttribute Librarian librarian, Model model) {
+        librarianData.save(librarian);
+        model.addAttribute("librarian", librarian);
+        return "index";
+    }
+    //***** Librarian *****
 }
