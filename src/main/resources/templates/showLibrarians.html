@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Librarians</title>
     <meta charset="UTF-8"/>
@@ -20,11 +21,11 @@
         <td th:text="${librarian.id}">id</td>
         <td th:text="${librarian.name}">name</td>
         <td th:text="${librarian.surname}">price</td>
-        <td><a href="deleteLibrarian" th:href="@{/deleteLibrarian/__${librarian.id}__}">Delete</a></td>
+        <td><a href="deleteLibrarian" th:href="@{/deleteLibrarian/__${librarian.id}__}" sec:authorize="hasRole('ADMIN')">Delete</a></td>
     </tr>
 </table>
 
-<a href="addLibrarian">Add librarian</a>
+<a href="addLibrarian" sec:authorize="hasRole('ADMIN')">Add librarian</a>
 
 </body>
 

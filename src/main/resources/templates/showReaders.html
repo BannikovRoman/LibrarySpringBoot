@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Readers</title>
     <meta charset="UTF-8"/>
@@ -20,11 +21,11 @@
         <td th:text="${reader.id}">id</td>
         <td th:text="${reader.name}">name</td>
         <td th:text="${reader.surname}">price</td>
-        <td><a href="deleteReader" th:href="@{/deleteReader/__${reader.id}__}">Delete</a></td>
+        <td><a href="deleteReader" th:href="@{/deleteReader/__${reader.id}__}" sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">Delete</a></td>
     </tr>
 </table>
 
-<a href="addReader">Add reader</a>
+<a href="addReader" sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">Add reader</a>
 
 </body>
 

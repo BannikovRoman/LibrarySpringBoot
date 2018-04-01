@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Home page</title>
     <meta charset="UTF-8"/>
@@ -8,8 +9,13 @@
 
 <body>
 
-<a href="showReaders">Show readers</a>
-<a href="showLibrarians">Show librarians</a>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<br/>
+<a href="showReaders" sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">Show readers</a>
+<a href="showLibrarians" sec:authorize="hasRole('ADMIN')">Show librarians</a>
 
 </body>
 
