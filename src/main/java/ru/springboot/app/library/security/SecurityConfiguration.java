@@ -17,6 +17,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers()
                     .permitAll()
+                    .antMatchers("/addLibrarian", "/deleteLibrarian/**").hasRole("ADMIN")
+                    .antMatchers("/addReader", "/deleteReader/**", "/showReaders").hasAnyRole("ADMIN", "LIBRARIAN")
                     .anyRequest()
                     .authenticated();
         http
