@@ -14,8 +14,12 @@
     <input type="submit" value="Sign Out"/>
 </form>
 <br/>
-<a href="showReaders" sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">Show readers</a>
-<a href="showLibrarians" sec:authorize="hasRole('ADMIN')">Show librarians</a>
+<div sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">
+    <a href="showReaders" >Show readers</a>
+</div>
+<div sec:authorize="hasRole('ADMIN')">
+    <a href="showLibrarians">Show librarians</a>
+</div>
 
 </body>
 
